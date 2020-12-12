@@ -558,10 +558,16 @@ module.exports = function (webpackEnv) {
       new HtmlWebpackPlugin(
         Object.assign(
           {},
-          {
-            inject: true,
-            template: paths.appHtml,
-          },
+          process.env.NODE_ENV == "development"
+            ? {
+               inject: true,
+               template: paths.appHtml,
+              }
+            : {
+               inject: true,
+               template: paths.appHtml,
+               filename: "../../templates/index.html"
+              },
           isEnvProduction
             ? {
                 minify: {
